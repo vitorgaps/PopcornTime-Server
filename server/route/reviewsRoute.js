@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const reviewsService = require("../service/reviewsService");
+const verifyJWT = require("./authVerify/verifyJWT");
 
 router.get("/reviews", async function (req, res, next) {
   try {
@@ -35,7 +36,6 @@ router.post("/reviews", async function (req, res, next) {
     const newReview = await reviewsService.saveReview(post);
     res.status(201).json(newReview);
   } catch (e) {
-    console.log(e.message);
     next(e);
   }
 });

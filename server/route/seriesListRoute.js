@@ -27,10 +27,8 @@ router.post("/series/list/user/:id", async function (req, res, next) {
       listItem,
       req.params.id
     );
-    console.log(insertedItem);
     res.status(201).json(insertedItem);
   } catch (e) {
-    console.log(e.message);
     next(e);
   }
 });

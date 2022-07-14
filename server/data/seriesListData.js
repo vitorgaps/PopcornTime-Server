@@ -7,7 +7,6 @@ exports.getList = function () {
 
 exports.getListItem = function (id) {
   var result = database.one('select * from "listItens" where "id" = $1', id);
-  console.log(result);
   return result;
 };
 
