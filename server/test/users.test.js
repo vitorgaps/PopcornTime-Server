@@ -1,15 +1,19 @@
 const axios = require("axios");
 const crypto = require("crypto");
 const usersService = require("../service/usersService");
-const authService = require("../route/authenticationRoute");
-
-const request = function (url, method, data) {
-  return axios({ url, method, data, validateStatus: false });
-};
+const request = require("./utils/requestUtil");
+const createUser = require("./utils/createUser");
 
 test("Should get the users", async function () {
-  const response = await request("http://localhost:3000/users", "get");
+  const user = await createUser();
+  const response = await request(
+    "http://localhost:3000/users",
+    "get",
+    "",
+    user.token
+  );
   expect(response.data.length).toBeGreaterThan(0);
+  await usersService.deleteUser(user.id);
 });
 
 test("Should insert a user", async function () {
@@ -27,17 +31,18 @@ test("Should insert a user", async function () {
 });
 
 test("Should update a user", async function () {
+  const user = await createUser();
   const data = {
     name: "Vitor Santos",
     email: "notvitor@mail.com",
     password: "abc12345",
   };
-  const user = await usersService.createUser(data);
   data.name = "Vitor G. P. Santos";
   const response = await request(
     `http://localhost:3000/users/${user.id}`,
     "put",
-    data
+    data,
+    user.token
   );
   expect(response.status).toBe(204);
   var updated = await usersService.getUser(user.id);

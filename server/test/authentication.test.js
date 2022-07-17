@@ -15,16 +15,16 @@ test("Should authenticate the user", async function () {
   };
   const user = await usersService.createUser(data);
   const loginBody = {
-    id: 20,
-    email: "notvitor@mail.com",
-    password: "abc12345",
+    id: user.id,
+    email: user.email,
+    password: data.password,
   };
   const response = await request(
     "http://localhost:3000/login",
     "post",
     loginBody
   );
-  const loginObject = response.body;
+  const loginObject = response.data;
   expect(loginObject.auth).toBe(true);
   await usersService.deleteUser(user.id);
 });
