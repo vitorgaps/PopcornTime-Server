@@ -12,5 +12,6 @@ app.use("/", require("./route/reviewsRoute"));
 app.use("/", require("./route/seriesListRoute"));
 app.use("/", require("./route/usersRoute"));
 app.use("/", require("./route/authenticationRoute"));
+app.use("/", require("./route/seriesRoute"));
 
 app.listen(3000);
