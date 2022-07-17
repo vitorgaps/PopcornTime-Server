@@ -9,7 +9,11 @@ const createUser = async function () {
   };
   const user = await usersService.createUser(data);
   data.id = user.id;
-  const response = await request("http://localhost:3000/login", "post", data);
+  const response = await request(
+    `${process.env.API_BASE_URL}:${process.env.API_BASE_PORT}/login`,
+    "post",
+    data
+  );
   user.token = response.data.token;
   return user;
 };

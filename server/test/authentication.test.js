@@ -20,7 +20,7 @@ test("Should authenticate the user", async function () {
     password: data.password,
   };
   const response = await request(
-    "http://localhost:3000/login",
+    "http://localhost:3333/login",
     "post",
     loginBody
   );

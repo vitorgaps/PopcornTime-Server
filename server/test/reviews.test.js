@@ -15,7 +15,7 @@ test("Should get reviews", async function () {
   };
   const review = await reviewService.saveReview(reviewData);
   const response = await request(
-    "http://localhost:3000/reviews",
+    "http://localhost:3333/reviews",
     "get",
     "",
     user.token
@@ -35,7 +35,7 @@ test("Should save a review", async function () {
     reviewNote: 0,
   };
   const response = await request(
-    "http://localhost:3000/reviews",
+    "http://localhost:3333/reviews",
     "post",
     data,
     user.token
@@ -62,7 +62,7 @@ test("Should update a review", async function () {
   review.reviewText = generate();
   review.reviewNote = 4;
   const response = await request(
-    `http://localhost:3000/reviews/${review.id}`,
+    `http://localhost:3333/reviews/${review.id}`,
     "put",
     review,
     user.token
@@ -86,7 +86,7 @@ test("Should delete a review", async function () {
   const review = await reviewService.saveReview(data);
   const reviewsLength = (await reviewService.getReviews()).length;
   const response = await request(
-    `http://localhost:3000/reviews/${review.id}`,
+    `http://localhost:3333/reviews/${review.id}`,
     "delete",
     "",
     user.token

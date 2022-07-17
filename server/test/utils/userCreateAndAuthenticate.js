@@ -6,7 +6,7 @@ module.exports = createAndAuthenticateUser = async function () {
   };
   const user = await usersService.createUser(data);
   response = await axios({
-    url: "http://localhost:3000/login",
+    url: `${process.env.API_BASE_URL}:${process.env.API_BASE_PORT}/login`,
     method: "post",
     data,
     validateStatus: false,

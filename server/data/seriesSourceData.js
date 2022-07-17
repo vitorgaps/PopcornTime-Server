@@ -33,3 +33,7 @@ exports.updateLocalDB = function (serie) {
     ]
   );
 };
+
+exports.getSeries = function () {
+  return database.query('select * from "series"');
+};

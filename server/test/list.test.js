@@ -8,7 +8,7 @@ const createUser = require("./utils/createUser");
 test("Should get series list", async function () {
   const user = await createUser();
   const response = await request(
-    "http://localhost:3000/series/list",
+    "http://localhost:3333/series/list",
     "get",
     "",
     user.token
@@ -22,7 +22,7 @@ test("Should get a specific serie list item", async function () {
   const data = { serieId: 1, watched: false, onList: true };
   const listItem = await seriesListService.insertOnList(data, user.id);
   const response = await request(
-    `http://localhost:3000/series/list/${listItem.id}`,
+    `http://localhost:3333/series/list/${listItem.id}`,
     "get",
     "",
     user.token
@@ -38,7 +38,7 @@ test("Should insert a item on list", async function () {
   const data = { serieId: 1, watched: false, onList: true };
   const seriesList = await seriesListService.getList();
   const response = await request(
-    `http://localhost:3000/series/list/user/${user.id}`,
+    `http://localhost:3333/series/list/user/${user.id}`,
     "post",
     data,
     user.token
@@ -60,7 +60,7 @@ test("Should delete a item of list", async function () {
   const listItem = await seriesListService.insertOnList(data, user.id);
   const seriesList = await seriesListService.getList();
   const response = await request(
-    `http://localhost:3000/series/list/${listItem.id}`,
+    `http://localhost:3333/series/list/${listItem.id}`,
     "delete",
     "",
     user.token
@@ -80,7 +80,7 @@ test("Should update a item", async function () {
   expect(listItem.onList).toBe(true);
   const updatedData = { watched: true, onList: false };
   const response = await request(
-    `http://localhost:3000/series/list/${listItem.id}`,
+    `http://localhost:3333/series/list/${listItem.id}`,
     "put",
     updatedData,
     user.token

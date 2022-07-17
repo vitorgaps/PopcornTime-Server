@@ -7,7 +7,7 @@ const createUser = require("./utils/createUser");
 test("Should get the users", async function () {
   const user = await createUser();
   const response = await request(
-    "http://localhost:3000/users",
+    "http://localhost:3333/users",
     "get",
     "",
     user.token
@@ -22,7 +22,7 @@ test("Should insert a user", async function () {
     email: "notvitor@mail.com",
     password: "abc12345",
   };
-  const response = await request("http://localhost:3000/users", "post", data);
+  const response = await request("http://localhost:3333/users", "post", data);
   expect(response.status).toBe(201);
   const user = response.data;
   expect(user.name).toBe(data.name);
@@ -39,7 +39,7 @@ test("Should update a user", async function () {
   };
   data.name = "Vitor G. P. Santos";
   const response = await request(
-    `http://localhost:3000/users/${user.id}`,
+    `http://localhost:3333/users/${user.id}`,
     "put",
     data,
     user.token

@@ -6,3 +6,7 @@ exports.updateSeries = async function () {
     await seriesSourceData.updateLocalDB(serie);
   });
 };
+
+exports.getSeries = async function () {
+  return seriesSourceData.getSeries();
+};
