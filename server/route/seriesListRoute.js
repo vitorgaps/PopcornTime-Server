@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const seriesListService = require("../service/seriesListService");
+const verifyJWT = require("./authVerify/verifyJWT");
 
-router.get("/series/list", async function (req, res, next) {
+router.get("/series/list", verifyJWT, async function (req, res, next) {
   try {
     var seriesList = await seriesListService.getList();
     return res.json(seriesList);
@@ -11,7 +12,7 @@ router.get("/series/list", async function (req, res, next) {
   }
 });
 
-router.get("/series/list/:id", async function (req, res, next) {
+router.get("/series/list/:id", verifyJWT, async function (req, res, next) {
   try {
     var seriesListItem = await seriesListService.getListItem(req.params.id);
     return res.json(seriesListItem);
@@ -20,20 +21,24 @@ router.get("/series/list/:id", async function (req, res, next) {
   }
 });
 
-router.post("/series/list/user/:id", async function (req, res, next) {
-  const listItem = req.body;
-  try {
-    const insertedItem = await seriesListService.insertOnList(
-      listItem,
-      req.params.id
-    );
-    res.status(201).json(insertedItem);
-  } catch (e) {
-    next(e);
+router.post(
+  "/series/list/user/:id",
+  verifyJWT,
+  async function (req, res, next) {
+    const listItem = req.body;
+    try {
+      const insertedItem = await seriesListService.insertOnList(
+        listItem,
+        req.params.id
+      );
+      res.status(201).json(insertedItem);
+    } catch (e) {
+      next(e);
+    }
   }
-});
+);
 
-router.put("/series/list/:id", async function (req, res, next) {
+router.put("/series/list/:id", verifyJWT, async function (req, res, next) {
   const listItem = req.body;
   try {
     await seriesListService.updateItemFromList(listItem, req.params.id);
@@ -43,7 +48,7 @@ router.put("/series/list/:id", async function (req, res, next) {
   }
 });
 
-router.delete("/series/list/:id", async function (req, res, next) {
+router.delete("/series/list/:id", verifyJWT, async function (req, res, next) {
   try {
     await seriesListService.deleteFromList(req.params.id);
     res.status(204).end();

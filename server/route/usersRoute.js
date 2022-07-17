@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const usersService = require("../service/usersService");
+const verifyJWT = require("./authVerify/verifyJWT");
 
 router.post("/users", async function (req, res, next) {
   var userCreationData = req.body;
@@ -12,7 +13,7 @@ router.post("/users", async function (req, res, next) {
   }
 });
 
-router.put("/users/:id", async function (req, res, next) {
+router.put("/users/:id", verifyJWT, async function (req, res, next) {
   var userUpdateData = req.body;
   var id = req.params.id;
   try {
@@ -32,7 +33,7 @@ router.get("/users", async function (req, res, next) {
   }
 });
 
-router.get("/users/:id", async function (req, res, next) {
+router.get("/users/:id", verifyJWT, async function (req, res, next) {
   var id = req.params.id;
   try {
     var user = await usersService.getUser(id);
@@ -42,7 +43,7 @@ router.get("/users/:id", async function (req, res, next) {
   }
 });
 
-router.delete("/users/:id", async function (req, res, next) {
+router.delete("/users/:id", verifyJWT, async function (req, res, next) {
   var id = req.params.id;
   try {
     await usersService.deleteUser(id);

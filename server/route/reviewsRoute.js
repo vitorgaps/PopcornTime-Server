@@ -3,7 +3,7 @@ const router = express.Router();
 const reviewsService = require("../service/reviewsService");
 const verifyJWT = require("./authVerify/verifyJWT");
 
-router.get("/reviews", async function (req, res, next) {
+router.get("/reviews", verifyJWT, async function (req, res, next) {
   try {
     var reviews = await reviewsService.getReviews();
     return res.json(reviews);
@@ -12,7 +12,7 @@ router.get("/reviews", async function (req, res, next) {
   }
 });
 
-router.get("/reviews/:id", async function (req, res, next) {
+router.get("/reviews/:id", verifyJWT, async function (req, res, next) {
   try {
     var reviews = await reviewsService.getReviewsById(req.params.id);
     return res.json(reviews);
@@ -21,7 +21,7 @@ router.get("/reviews/:id", async function (req, res, next) {
   }
 });
 
-router.get("/reviews/user/:id", async function (req, res, next) {
+router.get("/reviews/user/:id", verifyJWT, async function (req, res, next) {
   try {
     var reviews = await reviewsService.getReviewsByUser(req.params.id);
     return res.json(reviews);
@@ -30,7 +30,7 @@ router.get("/reviews/user/:id", async function (req, res, next) {
   }
 });
 
-router.post("/reviews", async function (req, res, next) {
+router.post("/reviews", verifyJWT, async function (req, res, next) {
   const post = req.body;
   try {
     const newReview = await reviewsService.saveReview(post);
@@ -40,7 +40,7 @@ router.post("/reviews", async function (req, res, next) {
   }
 });
 
-router.put("/reviews/:id", async function (req, res, next) {
+router.put("/reviews/:id", verifyJWT, async function (req, res, next) {
   try {
     var review = req.body;
     await reviewsService.updateReview(review, req.params.id);
@@ -50,7 +50,7 @@ router.put("/reviews/:id", async function (req, res, next) {
   }
 });
 
-router.delete("/reviews/:id", async function (req, res, next) {
+router.delete("/reviews/:id", verifyJWT, async function (req, res, next) {
   try {
     await reviewsService.deleteReview(req.params.id);
     res.status(204).end();
