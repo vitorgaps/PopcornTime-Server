@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon server/server.js",
     "test": "jest --env node"
   },
   "keywords": [],
@@ -18,6 +19,7 @@
     "express": "^4.18.1",
     "jest": "^28.1.2",
     "jsonwebtoken": "^8.5.1",
+    "moviedb": "^0.2.12",
     "nodemon": "^2.0.18",
     "pg": "^8.7.3",
     "pg-promise": "^10.11.1",

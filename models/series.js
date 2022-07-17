@@ -35,6 +35,10 @@ const Serie = database.define(
       type: Sequelize.FLOAT,
       allowNull: false,
     },
+    originalId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
   },
   {
     timestamps: false,

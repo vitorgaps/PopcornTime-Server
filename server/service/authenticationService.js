@@ -1,3 +1,4 @@
+const crypto = require("crypto");
 const userService = require("./usersService");
 
 exports.authenticate = async function (user) {
